@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* --- POPUP STYLES --- */
+        /* --- POPUP STYLES (Fixed) --- */
         #popup-overlay {
             position: fixed;
             top: 0;
@@ -207,7 +207,7 @@
         </div>
 
         <div class="help-container">
-            <a href="https://t.me/Cricmanie_bot" class="help-btn" target="_blank">
+            <a href="https://t.me/Crickmanie_bot" class="help-btn" target="_blank">
                 <i class="fa-solid fa-circle-question"></i> Help / Problem
             </a>
         </div>
@@ -224,7 +224,7 @@
     <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
 
     <script>
-        // --- POPUP LOGIC ---
+        // --- POPUP LOGIC (Global Function) ---
         function closePopup() {
             const popup = document.getElementById('popup-overlay');
             if (popup) {
@@ -235,12 +235,8 @@
         // --- PLAYER LOGIC ---
         document.addEventListener('DOMContentLoaded', () => {
             const video = document.getElementById('player');
-            
-            // <<<<<<<<< YAHAN CHANGE KIYA HAI (PROXY ADDED) >>>>>>>>>
-            const streamUrl = "https://aps12.playlist.live-video.net/v1/playlist/CrkFiNYo1kwrqzhTw9r4x6Qs1H4pY63ANXNWgGyoORuo-n7GxxnZC2VoZO26WmexsLC196-AaFMn-StMNBbDGBE5Ke4glCPdlCDTKk4nUjeZuxxPS_tUQgjv7dKC5GJ-Zb1ygs34kmHFEdu2TmR37T-oORgNAEYN2hruh5_k_Cfm5LpYI3Jw3706LebRHByBugXJImVj8bsHUgVIxzciFhKb7IGDV-mJ5-c32EE8X6lFw61pYhEXIPqOwtVOxvOQy1vGT1ZwbJ7l02LU7R7o-HXW3B814_pLTBQ2X_InShQmhHnKaC8i_uBHKLZyF1-amIXx75JCTGHgFM7sCWqWNbV57lof2TRmvpWYUwkYoVLdFGrY6O0TtetvIIFU2OqjwLanVoigAYeU94TDXpvS2xSdN76HXD2RyaWmDcGTs_ZGFtIhXCZBJWurS_B9oLZ7viq25tX9L041jO4jJ1NjGZ-MAYuLgVWx5RXKA8vXTI4-3P3Z0xb9ZNBRrGeIrCZsIFuPFquMH8sVrDC6d-c4Yq9lCNJXHLM8FH0k7cGpMjFtZXI79SMRIaIOfMncwmR8OUHjdlbXCxQHkmVQCQ0BoH5k3RfcbFqAwPJlShV6W1nlzUilwk7IM-fP5nXhNU4QSW6fmRCrL1uSDIkSAsGX_gwS-1UvSFDSobGkLr6GN_qkoEc_OdDfMNu-VJmkX-EbUlPqji5LCS5XPKehaN2RyPXXHNLsZHzYZfbMirm93nxdmU103ZQmCfhrKUC5JOEOr0ToSPt3H6tvJB_Iz2_NbwP_EDWGh9Zef9FRygIwGbax4qxf0LUnRa1-Zv3cXv8ETRQfkPAQls_IjcZ8jkhVk5wyYwr4gG786J7MRV9ZzzHauN4nN-aMsYxif1-UfwgVf3GEZmFWxyA1FL0Mraqee-HnIxOf9SoZxsIFKBoMLEN0ySh0oxCHlOlrIAEqCXVzLXdlc3QtMjCrDg.m3u8";
-            
-            // Corsproxy.io ka use karke bypass karne ki koshish (Sirf ye line add hui hai)
-            const source = "https://corsproxy.io/?" + encodeURIComponent(streamUrl);
+            // Isme apni link daalo
+            const source = "https://in-mc-fdlive.fancode.com/mumbai/138998_english_hls_e1e232f00268879_1ta-di_h264/index.m3u8";
 
             if (Hls.isSupported()) {
                 const hls = new Hls();
@@ -301,4 +297,5 @@
         }
     </script>
 </body>
+
 </html>
