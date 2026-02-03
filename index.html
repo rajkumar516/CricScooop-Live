@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CricScooop Live - Premium Stream</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <style>
+        :root {
+            --primary-color: #ef4444; /* Red Brand Color */
+            --bg-dark: #0f172a;
+            --bg-darker: #020617;
+            --text-light: #f8fafc;
+        }
+
+        body {
+            background-color: var(--bg-darker);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- POPUP STYLES (Fixed) --- */
+        #popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex; /* Flex to center */
+            justify-content: center;
+            align-items: center;
+            z-index: 10000; /* Highest layer */
+        }
+
+        .popup-box {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .popup-box h2 { margin-top: 0; color: var(--primary-color); }
+        
+        .join-btn-large {
+            display: block;
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 0;
+            margin: 15px 0;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: transform 0.2s;
+        }
+        .join-btn-large:active { transform: scale(0.98); }
+
+        .close-btn-text {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            background: #1e293b;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+        .header h1 { margin: 0; font-size: 22px; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* --- PLAYER --- */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 10px;
+        }
+        
+        .video-box {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            background: #000;
+            border: 1px solid #334155;
+        }
+
+        /* --- SOCIAL BUTTONS --- */
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .social-icon:hover { transform: translateY(-3px); }
+
+        .tg { background: #0088cc; }
+        .ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+        .yt { background: #FF0000; }
+        .x { background: #000000; border: 1px solid #333; }
+
+        /* --- COMPACT HELP BUTTON --- */
+        .help-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .help-btn {
+            background: #334155;
+            color: #e2e8f0;
+            padding: 8px 16px; /* Smaller padding */
+            font-size: 14px; /* Smaller text */
+            border-radius: 20px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #475569;
+            transition: 0.2s;
+        }
+        .help-btn:hover { background: #475569; }
+
+        /* --- SHARE BUTTON --- */
+        .share-box {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .share-btn {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(34, 197, 94, 0.3);
+        }
+        .share-btn:active { transform: scale(0.98); }
+        .note { color: #64748b; font-size: 12px; margin-top: 8px; }
+
+        /* Animation */
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div id="popup-overlay">
+        <div class="popup-box">
+            <i class="fa-brands fa-telegram fa-3x" style="color: #0088cc; margin-bottom: 10px;"></i>
+            <h2>Join CricScooop</h2>
+            <p>Join our Telegram for more Live Match links and Updates!</p>
+            
+            <a href="https://t.me/CricScooop" target="_blank" class="join-btn-large" onclick="closePopup()">
+                JOIN NOW
+            </a>
+            
+            <button class="close-btn-text" onclick="closePopup()">Maybe Later</button>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>CricScooop Live</h1>
+    </div>
+
+    <div class="container">
+        <div class="video-box">
+            <video id="player" playsinline controls crossorigin></video>
+        </div>
+
+        <div class="social-grid">
+            <a href="https://t.me/CricScooop" class="social-icon tg" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+            <a href="https://www.instagram.com/crickmanie" class="social-icon ig" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="http://www.youtube.com/@Crickmanie" class="social-icon yt" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://x.com/crickmanie" class="social-icon x" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+
+        <div class="help-container">
+            <a href="https://t.me/Crickmanie_bot" class="help-btn" target="_blank">
+                <i class="fa-solid fa-circle-question"></i> Help / Problem
+            </a>
+        </div>
+
+        <div class="share-box">
+            <button class="share-btn" onclick="shareLink()">
+                <i class="fa-solid fa-share-nodes"></i> CLICK TO SHARE LINK
+            </button>
+            <p class="note">Copy Link & Open in Chrome Browser Only</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
+
+    <script>
+        // --- POPUP LOGIC (Global Function) ---
+        function closePopup() {
+            const popup = document.getElementById('popup-overlay');
+            if (popup) {
+                popup.style.display = 'none';
+            }
+        }
+
+        // --- PLAYER LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('player');
+            // Isme apni link daalo
+            const source = "https://aps11.playlist.live-video.net/v1/playlist/CrUFrGLxIt0NOkRY5vhcengJYAus_Tj3qG2ncsjY4mkGJ6yE6Y1rfYJ7J7KwJNcs6F6O_dbBI8jQONroXq-tp2fTtIcsJJO1mnlBGq7EAPIUcWgNdKjU2mOKtryi9m6u5Ub1VfkQqJxKhiazLZ9EK_klKK5vgO26R1NNzadXPALos4zjKcWb27HEX9bxkvhvy3uSqKkHlNrzY0Mam7xRGy83FoltJzxJNFV8CFpajQVl2-D3iXdKdFwtWpHRkS-7RlcALY4SD6rA-j_yfvsTkbbmsoBDmruRp6Kg1PCKPU8Tp4frF-Qf_gb7ZnmFFqrE3Bd7I3Y2LiFn_arDxCPKkZLoNrFFYgNrv2q_rez2Xuc7GpZdN2JJj34f7Ke61UObmR6rHuq9xNRxRgxpoHQGSor7Ne-Drg8OlIkUekZb1XiK705U5QgfsjJF9P6Vmrxacwmn3tk9kU_0-lKmXkNGUcNOnTz8trDWP48QHJ2JvBgovfYWgH8HmRgfMzQqTXBOlok-3r50L4Q2EdaDhEwjDl-rdcUpqCeX9lCSXIjjYMt4cYBgD6vTWl9BYoY_n65K3kNf3MiEbe8re1nbofIqsWXGPRTSCIHlkaU-9TZqRvabI6hlJzTpcqu5VOX1geb713Kjmg_wTUsq-MFOxcosCxnYvVRTdw6zS8izyHtZOly28tjmujW-nlyYzofamL3GQ7ju3RgolYZlHLHal38gu7H3ySg2dlrclA9QJjcPbu5UNAxb7A2yfpRpzk2OGRmJbR52ydK91sABbeE9BNk44ZXuMP340eAXqEONOhHIFEHloWr3yIKq2axmd_83qkWYtYenFVxP9q7CirCyBJMGqm3L4v4okVfWU1xgZDr05QtyEKTNiO4ngfCyfIjSuPGlT9vwaE8vZUIn44SWL78qEDbbcqQVKqz9GgxO2ayLxCpsNy7ypxogASoJdXMtd2VzdC0yMKsO.m3u8";
+
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(source);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    const availableQualities = hls.levels.map((l) => l.height);
+                    
+                    const playerConfig = {
+                        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'],
+                        settings: ['speed']
+                    };
+
+                    // Agar multiple quality mile, tabhi quality ka option dikhao
+                    if (availableQualities.length > 1) {
+                        playerConfig.settings.push('quality');
+                        playerConfig.quality = {
+                            default: availableQualities[0],
+                            options: availableQualities,
+                            forced: true,
+                            onChange: (e) => updateQuality(e),
+                        };
+                    }
+
+                    new Plyr(video, playerConfig);
+                });
+
+                function updateQuality(newQuality) {
+                    hls.levels.forEach((level, levelIndex) => {
+                        if (level.height === newQuality) {
+                            hls.currentLevel = levelIndex;
+                        }
+                    });
+                }
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = source;
+                new Plyr(video, {
+                    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'],
+                    settings: ['speed']
+                });
+            }
+        });
+
+        // --- SHARE LOGIC ---
+        function shareLink() {
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'CricScooop Live',
+                    text: 'Watch Live Match Here!',
+                    url: url
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Link Copied to Clipboard!');
+                });
+            }
+        }
+    </script>
+</body>
+</html>
